@@ -12,4 +12,5 @@
     var vel = [Math.random() * 6 - 3, Math.random() * 6 - 3];
     return new Asteroid(pos, vel);
   }
+  
 })(this);

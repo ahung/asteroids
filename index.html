@@ -7,15 +7,21 @@
   <script src="game.js"></script>
   <script src="ship.js"></script>
   <script src="bullet.js"></script>
+  <title>Asteroids</title>
 </head>
 <body>
-  <canvas width="500" height="500"></canvas>
+  <canvas width="1200" height="800"></canvas>
 
   <script>
     var canvas = document.getElementsByTagName("canvas")[0];
     var ctx = canvas.getContext('2d');
     new Asteroids.Game(ctx).start();
   </script>
-
+  <br>
+  Controls: 
+  <br>
+  W, A, S, D to Move
+  <br>
+  Spacebar to Fire (in the direction you are moving)
 </body>
 </html>
