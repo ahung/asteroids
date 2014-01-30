@@ -7,6 +7,9 @@
     this.addAsteroids(15);
     this.ship = new Asteroids.Ship;
     this.bullets = [];
+    this.bindFireHandler();
+    this.img = new Image();
+    this.img.src = 'background.jpg';
   };
 
   Game.DIM_X = 1200;
@@ -20,30 +23,35 @@
   };
 
   Game.prototype.bindKeyHandlers = function () {
+    if (key.isPressed('w')) {
+      this.ship.power([0, -1]);
+    }
+    if (key.isPressed('a')) {
+      this.ship.power([-1, 0]);
+    }
+    if (key.isPressed('s')) {
+      this.ship.power([0, 1]);
+    }
+    if (key.isPressed('d')) {
+      this.ship.power([1, 0]);
+    }
+  }
+  
+  Game.prototype.bindFireHandler = function () {
     var that = this;
-    key('w', function () {
-      that.ship.power([0, -0.01])
-    });
-    key('a', function () {
-      that.ship.power([ -0.01 , 0])
-    });
-    key('s', function () {
-      that.ship.power([0, 0.01])
-    });
-    key('d', function () {
-      that.ship.power([0.01, 0])
-    });
-    key('space', function() {
-      that.fireBullet();
+    
+    key('space', function () {
+      that.fireBullet(that);
     });
   }
   
   Game.prototype.checkCollisions = function() {
     for (var i = 0; i < this.bullets.length; i++) {
       for (var j = 0; j < this.asteroids.length; j++) {
-        if (this.bullets[i].hitAsteroid(this.asteroids[j])) {
-          this.removeAsteroid(j);
+        if (this.bullets[i] && this.asteroids[j] && 
+          this.bullets[i].isCollidedWith(this.asteroids[j])) {
           this.removeBullet(this.bullets[i]);
+          this.removeAsteroid(j);
         }
       }
     }
@@ -86,8 +94,7 @@
 
   Game.prototype.draw = function() {
     this.ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
-    this.ctx.fillStyle = "black";
-    this.ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
+    this.ctx.drawImage(this.img, 0, 0)
     var that = this;
     for (var i = 0; i < that.asteroids.length; i++) {
       that.asteroids[i].draw(that.ctx);
@@ -129,10 +136,9 @@
     window.clearInterval(Game.intervalID);
   }
 
-  Game.prototype.fireBullet = function(){
-    var that = this;
+  Game.prototype.fireBullet = function () {
     if (this.ship.vel != [0, 0]) {
-      that.bullets.push(that.ship.fireBullet());
+      this.ship.fireBullet(this);
     }
   };
 
