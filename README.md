@@ -1,7 +1,7 @@
 Asteroids
 =========
 A remake of the classic arcade game written in JavaScript.  
-Check it out live: [here](asteroids.alberthung.net) 
+Check it out live: [here](http://asteroids.alberthung.net) 
 
 Controls:  
  W, A, S, D to Move  
