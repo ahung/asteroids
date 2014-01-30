@@ -4,7 +4,7 @@
   var Game = Asteroids.Game = function(ctx){
     this.ctx = ctx;
     this.asteroids = [];
-    this.addAsteroids(15);
+    this.addAsteroids(20);
     this.ship = new Asteroids.Ship;
     this.bullets = [];
     this.bindFireHandler();
