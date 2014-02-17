@@ -56,9 +56,18 @@
       }
     }
     for (var i = 0; i < this.asteroids.length; i++) {
+      var that = this;
       if (this.asteroids[i].isCollidedWith(this.ship)){
-        alert("Game over!");
         this.stop();
+        this.ctx.fillStyle = "black";
+        this.ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
+        this.ctx.fillStyle = "white";
+        this.ctx.font = "100px Verdana"
+        this.ctx.fillText("You Lose!", 350, 300);
+        this.ctx.fillText("Click to Play Again", 150, 500);
+        $("#game").click(function () {
+          new Asteroids.Game(that.ctx).start();
+        });
       }
     }
   }
@@ -117,6 +126,7 @@
   };
 
   Game.prototype.start = function() {
+    $("#game").off()
     var that = this
     Game.intervalID = window.setInterval(function() {
       that.bindKeyHandlers();
@@ -157,9 +167,18 @@
   };
   
   Game.prototype.won = function () {
+    var that = this;
     if (this.asteroids.length === 0) {
-      alert("Congratulations! You've Destroyed All the Asteroids!")
       this.stop();
+      this.ctx.fillStyle = "black";
+      this.ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
+      this.ctx.fillStyle = "white";
+      this.ctx.font = "100px Verdana"
+      this.ctx.fillText("You Win!", 350, 300);
+      this.ctx.fillText("Click to Play Again", 150, 500);
+      $("#game").click(function () {
+        new Asteroids.Game(that.ctx).start();
+      });
     }
   }
 
