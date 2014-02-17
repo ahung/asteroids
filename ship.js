@@ -18,7 +18,7 @@
   Ship.prototype.fireBullet = function(game){
     var that = this;
     var speed = Math.sqrt(Math.pow(this.vel[0], 2) + Math.pow(this.vel[1], 2));
-    var bulletVel = [this.vel[0] / speed * 6, this.vel[1] / speed * 6];
+    var bulletVel = [this.vel[0] / speed * 10, this.vel[1] / speed * 10];
     new Asteroids.Bullet(that.pos.slice(), bulletVel, game);
   };
   

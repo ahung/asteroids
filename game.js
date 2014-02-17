@@ -58,16 +58,7 @@
     for (var i = 0; i < this.asteroids.length; i++) {
       var that = this;
       if (this.asteroids[i].isCollidedWith(this.ship)){
-        this.stop();
-        this.ctx.fillStyle = "black";
-        this.ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
-        this.ctx.fillStyle = "white";
-        this.ctx.font = "100px Verdana"
-        this.ctx.fillText("You Lose!", 350, 300);
-        this.ctx.fillText("Click to Play Again", 150, 500);
-        $("#game").click(function () {
-          new Asteroids.Game(that.ctx).start();
-        });
+        this.end("You Lose!")
       }
     }
   }
@@ -167,19 +158,23 @@
   };
   
   Game.prototype.won = function () {
-    var that = this;
     if (this.asteroids.length === 0) {
-      this.stop();
-      this.ctx.fillStyle = "black";
-      this.ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
-      this.ctx.fillStyle = "white";
-      this.ctx.font = "100px Verdana"
-      this.ctx.fillText("You Win!", 350, 300);
-      this.ctx.fillText("Click to Play Again", 150, 500);
-      $("#game").click(function () {
-        new Asteroids.Game(that.ctx).start();
-      });
+      this.end("You Won!")
     }
   }
+  
+  Game.prototype.end = function (msg) {
+    var that = this;
+    this.stop();
+    this.ctx.fillStyle = "black";
+    this.ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
+    this.ctx.fillStyle = "white";
+    this.ctx.font = "100px Verdana"
+    this.ctx.fillText(msg, 350, 300);
+    this.ctx.fillText("Click to Play Again", 150, 500);
+    $("#game").click(function () {
+      new Asteroids.Game(that.ctx).start();
+    });
+  };
 
 })(this);
